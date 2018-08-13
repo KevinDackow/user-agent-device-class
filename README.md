@@ -1,6 +1,14 @@
 # user-agent-device-class
 Utilities for parsing a User Agent String to get device specific memory and cpu data.
 
+## Usage:
+```
+$ python3 get_dev_info.py
+```
+Presently this returns the yearclass of the device.
+
+Additionally, methods in this code exist to extract RAM, clock speed, and number of cores from a given device.
+
 ## Known Software Dependencies:
 - [GSMArena API](https://github.com/ramtin2025/gsmarena-API)
 - [php-curl](http://php.net/manual/en/book.curl.php)
