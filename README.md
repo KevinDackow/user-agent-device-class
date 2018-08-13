@@ -2,8 +2,8 @@
 Utilities for parsing a User Agent String to get device specific memory and cpu data.
 
 Known Software Dependencies:
-[GSMArena API](https://github.com/ramtin2025/gsmarena-API)
-[php-curl](http://php.net/manual/en/book.curl.php)
+- [GSMArena API](https://github.com/ramtin2025/gsmarena-API)
+- [php-curl](http://php.net/manual/en/book.curl.php)
 
 With thanks to Facebook for the [following chart](https://github.com/facebook/device-year-class/blob/master/README.md), used to calculate device year:
 
