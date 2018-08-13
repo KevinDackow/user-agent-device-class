@@ -1,11 +1,11 @@
 # user-agent-device-class
 Utilities for parsing a User Agent String to get device specific memory and cpu data.
 
-Known Software Dependencies:
+## Known Software Dependencies:
 - [GSMArena API](https://github.com/ramtin2025/gsmarena-API)
 - [php-curl](http://php.net/manual/en/book.curl.php)
 
-With thanks to Facebook for the [following chart](https://github.com/facebook/device-year-class/blob/master/README.md), used to calculate device year:
+## With thanks to Facebook for the [following chart](https://github.com/facebook/device-year-class/blob/master/README.md), used to calculate device year:
 
 | RAM | condition | Year Class |
 |----:|----------:|-----------:|
@@ -22,8 +22,9 @@ With thanks to Facebook for the [following chart](https://github.com/facebook/de
 
 Given the limitations of User Agent Strings, we assume the most base level memory and processor speed.
 
-Example:
+## Example I/O:
 ```
+$ python3 get_dev_info.py
 >> Input User Agent: Mozilla/5.0 (Linux; Android 4.3; en-us; SAMSUNG SCH-I545 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36
 Samsung SCH-I545
 2013
