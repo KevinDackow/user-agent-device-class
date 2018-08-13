@@ -186,7 +186,7 @@ def repl():
     a REPL format"""
     while True:
         try:
-            dev = input("Input User Agent: ")
+            dev = input(">> Input User Agent: ")
             name = ua_to_device_name(dev)
             print(name)
             print(get_year_class(name))
