@@ -6,12 +6,11 @@ from user_agents import parse
 def to_megabytes_factor(unit):
     """Gets the factor to turn kb/gb into mb"""
     lower = unit.lower()
-    if lower == 'mb':
-        return 1
     if lower == 'gb':
         return 1000
     if lower == 'kb':
         return 0.001
+    return 1
 
 def get_dev_data(device, output_file):
     """Gets info for a device, returned as:
@@ -121,7 +120,7 @@ def get_year_class(device):
     https://github.com/facebook/device-year-class
     Attempts to base on clock speed and RAM, if one doesn't exist, uses the other,
     if neither exists, uses release date"""
-    dev_name, data = get_dev_data(device, 'tmp')
+    _, data = get_dev_data(device, 'tmp')
     ram = get_ram(get_memory(data))
     cpu = get_cpu(data)
     clock_speed = get_clock_speed(cpu)
@@ -182,15 +181,17 @@ def ua_to_device_name(user_a):
     uastr = str(user_agent).split(' / ') #e.g. iPhone / iOS 5.1 / Mobile Safari
     return uastr[0]
 
-def repl(output_file):
+def repl():
     """Searches and returns device year class in
     a REPL format"""
     while True:
         try:
-            dev = input("Input device name: ")
-            print(get_year_class(dev))
+            dev = input("Input User Agent: ")
+            name = ua_to_device_name(dev)
+            print(name)
+            print(get_year_class(name))
         except EOFError:
             break
 
 if __name__ == "__main__":
-    repl('temp')
+    repl()
