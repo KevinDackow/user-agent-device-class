@@ -5,7 +5,7 @@ Utilities for parsing a User Agent String to get device specific memory and cpu 
 Known Software Dependencies:
 https://github.com/ramtin2025/gsmarena-API
 
-With thanks to Facebook for the following chart, used to calculate device year:
+With thanks to Facebook for the [following chart](https://github.com/facebook/device-year-class/blob/master/README.md), used to calculate device year:
 
 Mappings as of this writing (RAM is a ceiling):
 
