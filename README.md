@@ -23,7 +23,8 @@ With thanks to Facebook for the [following chart](https://github.com/facebook/de
 Given the limitations of User Agent Strings, we assume the most base level memory and processor speed.
 
 Example:
-```>> Input User Agent: Mozilla/5.0 (Linux; Android 4.3; en-us; SAMSUNG SCH-I545 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36
+```
+>> Input User Agent: Mozilla/5.0 (Linux; Android 4.3; en-us; SAMSUNG SCH-I545 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36
 Samsung SCH-I545
 2013
 >> Input User Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.1.0-80) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true
@@ -34,4 +35,5 @@ BlackBerry 9700
 2009
 >> Input User Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1
 iPhone
-2009```
+2009
+```
