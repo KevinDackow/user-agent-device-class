@@ -8,16 +8,24 @@ def handle_args(ua, args):
     title, data = gdi.get_dev_data(dev, 'tmp')
     output = 'Device Identified: ' + title + '\n'
     if args.mem:
-        output += "RAM:\n" + str(gdi.get_ram(gdi.get_memory(data))) + ' MB\n'
+        output += "RAM:\n  " + str(gdi.get_ram(gdi.get_memory(data))) + ' MB\n'
     if args.cpu:
         cpu = gdi.get_cpu(data)
-        output += "CPU:\n" + "  Clock speed:"
-        output += str(gdi.get_clock_speed(data)) + 'GHz'
-        output += '\n   Number of Cores:\n'
-        output += str(gdi.get_cores(cpu)) + '\n'
+        clock = gdi.get_clock_speed(cpu)
+        output += "CPU:\n" + "  Clock speed: "
+        if clock is not None:
+            output += str(clock) + ' GHz\n'
+        else:
+            output += "Not available.\n"
+        cores = gdi.get_cores(cpu)
+        output += '  Number of Cores: '
+        if cores is not None:
+            output += str(cores) + '\n'
+        else:
+            output += "Not available.\n"
     if args.year:
         output += 'YearClass:\n'
-        output += '   ' + str(gdi.get_year_class) + '\n'
+        output += '  ' + str(gdi.get_year_class(data)) + '\n'
     name = gdi.ua_to_device_name(dev)
     gdi.get_year_class(name)
     return output
