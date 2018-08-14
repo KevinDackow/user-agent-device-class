@@ -3,11 +3,23 @@ Utilities for parsing a User Agent String to get device specific memory and cpu 
 
 ## Usage:
 ```
-$ python3 get_dev_info.py
-```
-Presently this returns the yearclass of the device.
+./process_ua.sh [-h] [-s] [-m] [-c] [-y] [-u UA] [-o OUTPUT_FILE]
 
-Additionally, methods in this code exist to extract RAM, clock speed, and number of cores from a given device.
+Get information from UA String
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -s                    Begins a UA parsing REPL
+  -m, --memory          Get memory information for device
+  -c, --cpu             Get cpu information for a UA string
+  -y, --yearclass       Get yearclass for a UA string
+  -u UA, --useragentfile UA
+                        Provide a file path with user agents to be
+                        automatically processed.
+  -o OUTPUT_FILE, --outputfile OUTPUT_FILE
+                        Output file path for processed data.
+
+```
 
 ## Known Software Dependencies:
 - [GSMArena API](https://github.com/ramtin2025/gsmarena-API)
@@ -16,21 +28,18 @@ Additionally, methods in this code exist to extract RAM, clock speed, and number
 
 Given the limitations of User Agent Strings, we assume the most base level memory and processor speed.
 
-## Example I/O:
+## Example I/O: 
 ```
-$ python3 get_dev_info.py
->> Input User Agent: Mozilla/5.0 (Linux; Android 4.3; en-us; SAMSUNG SCH-I545 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Version/1.5 Chrome/28.0.1500.94 Mobile Safari/537.36
-Samsung SCH-I545
-2013
->> Input User Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_3; en-us; Silk/1.1.0-80) AppleWebKit/533.16 (KHTML, like Gecko) Version/5.0 Safari/533.16 Silk-Accelerated=true
-Kindle
-2010
->> Input User Agent: BlackBerry9700/5.0.0.862 Profile/MIDP-2.1 Configuration/CLDC-1.1 VendorID/331 UNTRUSTED/1.0 3gpp-gba
-BlackBerry 9700
-2009
->> Input User Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1
-iPhone
-2009
+$ ./process_ua.sh -c -m -y -u examples/simple_file_io.txt
+Device Identified: Samsung Galaxy S4 CDMA
+RAM:
+  2000 MB
+CPU:
+  Clock speed: 1.9 GHz
+  Number of Cores: 4
+YearClass:
+  2013
+
 ```
 
 ## Misc.
