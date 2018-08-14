@@ -20,6 +20,7 @@ def get_dev_data(device, output_file):
     subprocess.run(args)
     with open(output_file +  '.json') as f:
         phone = json.load(f)
+    subprocess.run(['rm', '-rf', output_file + '.json'])
     return (phone['title'], phone['data'])
 
 def get_memory(data):
@@ -29,9 +30,9 @@ def get_memory(data):
         memory_info = data['memory']
         try:
             return memory_info['internal']
-        except KeyError:
+        except (KeyError, TypeError):
             return memory_info
-    except KeyError:
+    except (KeyError, TypeError):
         return None
 
 def get_ram(mem_info):
@@ -51,7 +52,7 @@ def get_ram(mem_info):
             return min(all_rams)
         except ValueError:
             return None
-    except KeyError:
+    except (KeyError, TypeError):
         return None
 
 def get_cpu(data):
@@ -61,9 +62,9 @@ def get_cpu(data):
         cpu_info = data['platform']
         try:
             return cpu_info['cpu']
-        except KeyError:
+        except (KeyError, TypeError):
             return cpu_info
-    except KeyError:
+    except (KeyError, TypeError):
         return None
 
 def get_clock_speed(cpu):
@@ -82,9 +83,9 @@ def get_clock_speed(cpu):
             return None
         if splitt[hz_index].lower() == 'mhz':
             return float(splitt[hz_index -1]) * 0.001
-        return float(splitt[hz_index - 1]) 
+        return float(splitt[hz_index - 1])
     except Exception: #a bit janky so catch all for now
-       return None
+        return None
 
 def get_cores(cpu):
     """Gets number of cores from given cpu data (returned by get_cpu)"""
@@ -103,7 +104,7 @@ def get_cores(cpu):
                     return 8
         return None
     except Exception: #this is kind of janky, so we have to catch all
-        return None 
+        return None
 
 def get_release_date(data):
     """gets device release date"""
@@ -111,16 +112,15 @@ def get_release_date(data):
         launch = data['launch']
         splt = launch.split(' ')
         return int(float(splt[0]))
-    except KeyError:
+    except (KeyError, TypeError):
         return None
 
-def get_year_class(device):
+def get_year_class(data):
     """Returns the device yearclass of the given device
     as per Facebook's Device-Year-Class chart:
     https://github.com/facebook/device-year-class
     Attempts to base on clock speed and RAM, if one doesn't exist, uses the other,
     if neither exists, uses release date"""
-    _, data = get_dev_data(device, 'tmp')
     ram = get_ram(get_memory(data))
     cpu = get_cpu(data)
     clock_speed = get_clock_speed(cpu)
@@ -180,18 +180,3 @@ def ua_to_device_name(user_a):
     user_agent = parse(user_a)
     uastr = str(user_agent).split(' / ') #e.g. iPhone / iOS 5.1 / Mobile Safari
     return uastr[0]
-
-def repl():
-    """Searches and returns device year class in
-    a REPL format"""
-    while True:
-        try:
-            dev = input(">> Input User Agent: ")
-            name = ua_to_device_name(dev)
-            print(name)
-            print(get_year_class(name))
-        except EOFError:
-            break
-
-if __name__ == "__main__":
-    repl()
