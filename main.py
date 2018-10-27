@@ -4,9 +4,19 @@ import get_dev_info as gdi
 
 def handle_args(ua, args):
     """Returns an output string"""
-    dev = gdi.ua_to_device_name(ua)
-    print(dev)
-    title, data = gdi.get_dev_data(dev, 'tmp')
+    dev1, dev2 = gdi.ua_to_device_name(ua)
+    dev = dev1
+    print("Dev1 is:")
+    print(dev1)
+    try:
+        title, data = gdi.get_dev_data(dev1, 'tmp')
+    except:
+        try:
+            title, data = gdi.get_dev_data(dev2, 'tmp')
+            dev = dev2
+        except:
+            print("Unable to identify device.")
+            return 
     output = 'Device Identified: ' + title + '\n'
     if args.mem:
         output += "RAM:\n  " + str(gdi.get_ram(gdi.get_memory(data))) + ' MB\n'

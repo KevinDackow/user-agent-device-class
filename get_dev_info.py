@@ -192,13 +192,17 @@ def ua_to_device_name(user_a):
     driver.find_element_by_id("login-password").send_keys(password)
     driver.find_element_by_css_selector("a.green-cta").click()
     driver.find_element_by_id("edit-da-detect-test-ua").send_keys(user_a)
-    time.sleep(2)
-    uastr = None
+    driver.find_element_by_id("edit-da-detect-test-ua").send_keys(u'\ue007') #enter
+    time.sleep(4)
+    uastr1 = None
     try:
         table = driver.find_element_by_tag_name("table")
         rows = table.find_element_by_tag_name("tbody").find_elements_by_tag_name("tr")
-        uastr = rows[2].find_elements_by_tag_name("td")[1].text
-    except: 
-        user_agent = parse(user_a)
-        uastr = str(user_agent).split(' / ') #e.g. iPhone / iOS 5.1 / Mobile Safari
-    return uastr
+        uastr1 = rows[2].find_elements_by_tag_name("td")[1].text
+    except:
+        uastr1 = None
+        print("Failed to use DeviceAtlas")
+    user_agent = parse(user_a)
+    uastr2 = str(user_agent).split(' / ')[0] #e.g. iPhone / iOS 5.1 / Mobile Safari
+    driver.close()
+    return uastr1, uastr2
