@@ -1,6 +1,9 @@
 # user-agent-device-class
 Utilities for parsing a User Agent String to get device specific memory and cpu data.
 
+## Requirements:
+deviceatlas.config with your username and password (see deviceatlas.config.example for formatting)
+
 ## Usage:
 ```
 ./process_ua.sh [-h] [-s] [-m] [-c] [-y] [-u UA] [-o OUTPUT_FILE]

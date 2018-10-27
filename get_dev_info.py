@@ -1,6 +1,8 @@
 """Gets device info as a JSON and assigns year class"""
 import subprocess
 import json
+import time
+from selenium import webdriver
 from user_agents import parse
 
 def to_megabytes_factor(unit):
@@ -176,7 +178,27 @@ def get_year_class(data):
     return get_release_date(data)
 
 def ua_to_device_name(user_a):
-    """gets the device name from the user agent string, as best as it can"""
-    user_agent = parse(user_a)
-    uastr = str(user_agent).split(' / ') #e.g. iPhone / iOS 5.1 / Mobile Safari
-    return uastr[0]
+    """gets the device name from the user agent string, as best as it can, with device atlas first, user agent parsing library second"""
+    with open("deviceatlas.config", "r") as credentials:
+        username = credentials.readline()
+        password = credentials.readline()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--disable-dev-shm-usge')
+    #options.set_headless(headless=True)
+    driver = webdriver.Chrome('/usr/bin/chromedriver', chrome_options=options)
+    driver.get("https://deviceatlas.com/device-data/user-agent-tester")
+    driver.find_element_by_id("toggle-login").click()
+    driver.find_element_by_id("login-username").send_keys(username)
+    driver.find_element_by_id("login-password").send_keys(password)
+    driver.find_element_by_css_selector("a.green-cta").click()
+    driver.find_element_by_id("edit-da-detect-test-ua").send_keys(user_a)
+    time.sleep(2)
+    uastr = None
+    try:
+        table = driver.find_element_by_tag_name("table")
+        rows = table.find_element_by_tag_name("tbody").find_elements_by_tag_name("tr")
+        uastr = rows[2].find_elements_by_tag_name("td")[1].text
+    except: 
+        user_agent = parse(user_a)
+        uastr = str(user_agent).split(' / ') #e.g. iPhone / iOS 5.1 / Mobile Safari
+    return uastr

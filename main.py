@@ -5,6 +5,7 @@ import get_dev_info as gdi
 def handle_args(ua, args):
     """Returns an output string"""
     dev = gdi.ua_to_device_name(ua)
+    print(dev)
     title, data = gdi.get_dev_data(dev, 'tmp')
     output = 'Device Identified: ' + title + '\n'
     if args.mem:
@@ -26,8 +27,7 @@ def handle_args(ua, args):
     if args.year:
         output += 'YearClass:\n'
         output += '  ' + str(gdi.get_year_class(data)) + '\n'
-    name = gdi.ua_to_device_name(dev)
-    gdi.get_year_class(name)
+    gdi.get_year_class(dev)
     return output
 
 def repl(args):
